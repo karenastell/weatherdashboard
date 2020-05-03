@@ -3,17 +3,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Weather Dashboard</title>
     <link rel="stylesheet" href="assets/css/normalize.css" />
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css"
     />
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <nav class="nav"><h1>Weather Dashboard</h1></nav>
+    <main>
+      <div class="columns">
+        <aside class="column is-two-fifths search-div">
+          <div class="input-div">
+            <input
+              type="text"
+              placeholder="Enter a City Name"
+              id="city-input"
+            />
+            <button class="button is-primary is-small">Search</button>
+          </div>
+          <div class="search-history"></div>
+        </aside>
+        <section class="column is-three-fifths">
+          <div class="columns">
+            <div class="current-weather">
+              <h2>
+                <span class="city"></span> <span class="date"></span>
+                <span class="icon"></span>
+              </h2>
+              <div class="weather-list-element">
+                <ul class="weather-list">
+                  <li class="temp"></li>
+                  <li class="humidity"></li>
+                  <li class="wind"></li>
+                  <li class="uv"></li>
+                </ul>
+              </div>
+              <div class="five-day">
+                <h2 class="five-day-header">5-Day-Forecast:</h2>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
     <script
       src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
       integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -25,10 +60,10 @@
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
     ></script>
+
     <script src="assets/js/script.js"></script>
   </body>
 </html>
