@@ -12,22 +12,26 @@
     <link rel="stylesheet" href="assets/css/style.css" />
   </head>
   <body>
+    <!-- Nav Header -->
     <nav class="nav"><h1>Weather Dashboard</h1></nav>
     <main>
       <div class="columns">
         <aside class="column is-two-fifths search-div">
+          <!-- Input and Button -->
           <div class="input-div">
             <input
               type="text"
               placeholder="Enter a City Name"
-              id="city-input"
+              class="city-input"
             />
-            <button class="button is-primary is-small">Search</button>
+            <button class="button is-primary is-small search">Search</button>
           </div>
+          <!-- Search hisotry buttons -->
           <div class="search-history"></div>
         </aside>
         <section class="column is-three-fifths">
           <div class="columns">
+            <!-- Current Weather -->
             <div class="current-weather">
               <h2>
                 <span class="city"></span> <span class="date"></span>
@@ -41,6 +45,7 @@
                   <li class="uv"></li>
                 </ul>
               </div>
+              <!-- 5-day-forecast -->
               <div class="five-day">
                 <h2 class="five-day-header">5-Day-Forecast:</h2>
               </div>
@@ -50,8 +55,8 @@
       </div>
     </main>
     <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      src="https://code.jquery.com/jquery-3.5.0.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
       crossorigin="anonymous"
     ></script>
     <script
@@ -59,11 +64,12 @@
       integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
       crossorigin="anonymous"
     ></script>
+
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
     ></script>
-
+    <script src="assets/moment/moment.min.js"></script>
     <script src="assets/js/script.js"></script>
   </body>
 </html>
