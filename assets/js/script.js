@@ -1,5 +1,6 @@
 var apiKey = "06cf4510268298d34395e66dd432fb8e";
 var cityInput;
+var stateInput;
 
 // ************************** Search Area ******************************
 // an input to allow the user to search for the city with an id = city-input
@@ -55,6 +56,7 @@ function getCurrentWeather() {
       getUVIndex(lat, lon);
       // calls the getFiveDay function to generate the 5-day-Forecast
       getFiveDay();
+      clearInputs();
     });
 }
 
@@ -77,36 +79,43 @@ function getFiveDay() {
   $.get(url).then(function (response) {
     console.log("five day ", response);
 
-    for (var i = 0; i < 5; i++) {
+    // for 5 days of weather info, create a card for each date and put the date, icon, temp, and humidity information onto the card
+    for (var i = 0; i < 40; i = i + 8) {
+      // creating card elements and adding the text/icon that goes in them
       var fiveDayEl = $("<div>", {
         class: "card",
       });
       var cardContent = $("<div>", {
         class: "card-content",
       });
+      var cardDiv = $("<div>");
+      var fiveDaySection = $("<section>", {
+        class: "column",
+      });
+      // adds the date
       var fiveDayDate = $("<p>", {
         class: "five-day-date",
         text: response.list[i].dt_txt,
       });
+      // adds the weather icon
       var fiveDayIcon = $("<img>", {
         src:
           "http://www.openweathermap.org/img/w/" +
           response.list[i].weather[0].icon +
           ".png",
       });
-
+      // adds the temp
       var fiveDayTemp = $("<p>", {
         class: "5-day-temp",
         text: "Temp: " + response.list[i].main.temp,
       });
+      // adds the humidity level
       var fiveDayHumidity = $("<p>", {
         class: "5-day-humidity",
         text: "Humidity: " + response.list[i].main.humidity + "%",
       });
-      var cardDiv = $("<div>");
-      var fiveDaySection = $("<section>", {
-        class: "column",
-      });
+
+      // appending the elements onto each other to create a complete card
       cardContent.append(
         fiveDayDate,
         fiveDayIcon,
@@ -117,13 +126,13 @@ function getFiveDay() {
       fiveDayEl.append(cardDiv);
 
       fiveDaySection.append(fiveDayEl);
-
+      // append the completed card onto the document in the 5-day-element
       $(".5-day-element").append(fiveDaySection);
     }
   });
 }
-//   include dates, temp, humidity and icon
-//   dynamically generated using JS
-//   generate a card which includes <p>, <img>, <h2>, <icon>
 
-// icon needs to concatenate .png onto it  response.list.weather.icon + .png
+function clearInputs() {
+  cityInput.text("");
+  stateInput.text("");
+}
