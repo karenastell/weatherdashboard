@@ -15,9 +15,9 @@
     <!-- Nav Header -->
     <nav class="nav"><h1>Weather Dashboard</h1></nav>
     <main>
-      <div class="columns">
-        <aside class="column is-two-fifths search-div">
-          <!-- Input and Button -->
+       <!-- Input and Button -->
+      <div class="columns"> 
+        <aside class="column is-one-quarter search-div">
           <div class="input-div">
             <input
               type="text"
@@ -34,15 +34,14 @@
           <!-- Search hisotry buttons -->
           <div class="search-history"></div>
         </aside>
-      
          <!-- Current Weather -->
-         <section class="column is-one-half section-style">   
+         <section class="column is-three-fifths section-style">   
             <div class="current-weather">
-                <h2>
-                  <span class="city"></span> <span class="date"></span>
+                <h2 class="vert-align current-weather-header">
+                  <span class="city"></span>      <span class="date span-padding"></span>
                  <span><img class="icon"></img></span> 
                 </h2>
-                <div class="weather-list-element">
+                <div class="weather-list-element current-weather-ul">
                   <ul class="weather-list">
                     <li class="temp"></li>
                     <li class="humidity"></li>

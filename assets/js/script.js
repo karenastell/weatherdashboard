@@ -21,14 +21,15 @@ var cityInputArray = [];
 //         humidity
 //         wind speed
 //         UV Index
-
+$(".icon").hide();
 // create a function that gets current weather
 function getCurrentWeather() {
+  $(".icon").show();
+  // assigns the value of the users input into variables
   cityInput = $(".city-input").val();
   stateInput = $(".state-input").val();
-  // takes the value of the city-input and replaces it in ${city} in the url
-  var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput}&appid=${apiKey}&units=imperial`;
-  // var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`;
+  // takes the value of the city-input and state-input and replaces it in the url
+  var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
   console.log(url);
   // sends a request to get information from the weather API
   $.get(url)
@@ -52,6 +53,7 @@ function getCurrentWeather() {
       console.log("long lat", lon, lat);
       // call the UVIndex function to generate the UV Index element
       getUVIndex(lat, lon);
+      // calls the getFiveDay function to generate the 5-day-Forecast
       getFiveDay();
     });
 }
@@ -70,7 +72,7 @@ function getUVIndex(lat, lon) {
 
 //create 5DayForcast function
 function getFiveDay() {
-  var url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput},${stateInput}&appid=${apiKey}&units=imperial`;
+  var url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
   console.log("five day", url);
   $.get(url).then(function (response) {
     console.log(response);
