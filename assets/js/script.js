@@ -45,9 +45,9 @@ function getCurrentWeather() {
           ".png"
       );
 
-      $(".temp").text("Temp: " + response.main.temp.toFixed());
+      $(".temp").text("Temperature: " + response.main.temp.toFixed());
       $(".humidity").text("Humidity: " + response.main.humidity + "%");
-      $(".wind").text("Wind Speed: " + response.wind.speed);
+      $(".wind").text("Wind Speed: " + response.wind.speed + " MPH");
       var lon = response.coord.lon;
       var lat = response.coord.lat;
       console.log("long lat", lon, lat);
@@ -75,7 +75,51 @@ function getFiveDay() {
   var url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
   console.log("five day", url);
   $.get(url).then(function (response) {
-    console.log(response);
+    console.log("five day ", response);
+
+    for (var i = 0; i < 5; i++) {
+      var fiveDayEl = $("<div>", {
+        class: "card",
+      });
+      var cardContent = $("<div>", {
+        class: "card-content",
+      });
+      var fiveDayDate = $("<p>", {
+        class: "five-day-date",
+        text: response.list[i].dt_txt,
+      });
+      var fiveDayIcon = $("<img>", {
+        src:
+          "http://www.openweathermap.org/img/w/" +
+          response.list[i].weather[0].icon +
+          ".png",
+      });
+
+      var fiveDayTemp = $("<p>", {
+        class: "5-day-temp",
+        text: "Temp: " + response.list[i].main.temp,
+      });
+      var fiveDayHumidity = $("<p>", {
+        class: "5-day-humidity",
+        text: "Humidity: " + response.list[i].main.humidity + "%",
+      });
+      var cardDiv = $("<div>");
+      var fiveDaySection = $("<section>", {
+        class: "column",
+      });
+      cardContent.append(
+        fiveDayDate,
+        fiveDayIcon,
+        fiveDayTemp,
+        fiveDayHumidity
+      );
+      cardDiv.append(cardContent);
+      fiveDayEl.append(cardDiv);
+
+      fiveDaySection.append(fiveDayEl);
+
+      $(".5-day-element").append(fiveDaySection);
+    }
   });
 }
 //   include dates, temp, humidity and icon

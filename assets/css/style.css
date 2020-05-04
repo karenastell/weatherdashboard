@@ -13,13 +13,14 @@
 
 .search-div {
   margin-left: 5px;
-  padding: 20px;
+  padding: 12px;
   border-right: 2px solid lightgray;
 }
 
 .current-weather {
   border: 1px solid grey;
   height: 300px;
+  padding-right: 50px;
 }
 
 .icon {
@@ -30,6 +31,14 @@
 .vert-align {
   height: 50px;
   line-height: 20px;
+}
+
+.city-input {
+  margin: 3px;
+}
+
+.state-input {
+  margin: 3px;
 }
 
 span {
@@ -50,4 +59,8 @@ span {
 
 .current-weather-ul {
   padding-left: 10px;
+}
+
+.section-style {
+  margin-left: 55px;
 }
