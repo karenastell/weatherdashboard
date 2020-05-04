@@ -13,6 +13,16 @@ var cityInputArray = [];
 // in the getCurrentWeather function, check local storage for previous searches
 
 // a list of buttons uder the search input with the names from cityInputArray
+function generateCityButtons() {
+  var cityBtn = $("<button>", {
+    class: "city-button button",
+    text: cityInput,
+  });
+  $(".search-history").append(cityBtn);
+}
+
+// clear search history
+$(".clear-history").on("click", clearSearchHistory);
 
 // *************************** Current Weather **************************
 // a <div> that holds the current weather
@@ -32,11 +42,17 @@ function getCurrentWeather() {
   // takes the value of the city-input and state-input and replaces it in the url
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
   console.log(url);
+
   // sends a request to get information from the weather API
   $.get(url)
     // recieve the information and put the values in proper place
     .then(function (response) {
       console.log(response);
+      // var cityBtn = $("<button>", {
+      //   class: "city-button button is-full-width",
+      //   text: cityInput,
+      // });
+      // $(".search-history").append(cityBtn);
       $(".city").text(response.name);
       $(".date").text(moment().format("L"));
       $(".icon").attr(
@@ -56,7 +72,8 @@ function getCurrentWeather() {
       getUVIndex(lat, lon);
       // calls the getFiveDay function to generate the 5-day-Forecast
       getFiveDay();
-      clearInputs();
+      // calls the generateCityButtons function
+      generateCityButtons();
     });
 }
 
@@ -135,4 +152,9 @@ function getFiveDay() {
 function clearInputs() {
   cityInput.text("");
   stateInput.text("");
+}
+
+function clearSearchHistory() {
+  $(".search-history").empty();
+  localStorage.clear();
 }
