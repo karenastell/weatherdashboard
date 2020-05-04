@@ -9,3 +9,8 @@
 .search-div {
   margin-left: 5px;
 }
+
+.current-weather {
+  border: 1px solid grey;
+  height: 300px;
+}

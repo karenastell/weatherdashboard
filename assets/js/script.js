@@ -23,46 +23,55 @@ var cityInputArray = [];
 //         UV Index
 
 // create a function that gets current weather
-
 function getCurrentWeather() {
   cityInput = $(".city-input").val();
+  stateInput = $(".state-input").val();
   // takes the value of the city-input and replaces it in ${city} in the url
-  var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`;
+  var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput}&appid=${apiKey}&units=imperial`;
+  // var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}`;
+  console.log(url);
   // sends a request to get information from the weather API
   $.get(url)
-    // recieve the information and do something with it
+    // recieve the information and put the values in proper place
     .then(function (response) {
       console.log(response);
       $(".city").text(response.name);
       $(".date").text(moment().format("L"));
       // $(".icon");
       // changes the Kelvin temp to Fahrenheit
-      var kTemp = response.main.temp;
-      var fTemp = 1.8 * (kTemp - 273) + 32;
-      $(".temp").text("Temp: " + fTemp.toFixed());
+
+      $(".temp").text("Temp: " + response.main.temp.toFixed());
       $(".humidity").text("Humidity: " + response.main.humidity + "%");
       $(".wind").text("Wind Speed: " + response.wind.speed);
       var lon = response.coord.lon;
       var lat = response.coord.lat;
       console.log("long lat", lon, lat);
+      // call the UVIndex function to generate the UV Index element
       getUVIndex(lat, lon);
+      getFiveDay();
     });
 }
+
 function getUVIndex(lat, lon) {
   var url = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
   console.log("uv", url);
   $.get(url).then(function (response) {
     console.log("uv response", response);
+    // input the information from the API
     $(".uv").text("UV Index: " + response.value);
   });
 }
-// input the information from the API
-
-// call the UVIndex function to generate the UV Index element
 
 // ************************** 5-Day-Forecast ****************************
 
 //create 5DayForcast function
+function getFiveDay() {
+  var url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput},${stateInput}&appid=${apiKey}&units=imperial`;
+  console.log("five day", url);
+  $.get(url).then(function (response) {
+    console.log(response);
+  });
+}
 //   include dates, temp, humidity and icon
 //   dynamically generated using JS
 //   generate a card which includes <p>, <img>, <h2>, <icon>
