@@ -37,8 +37,12 @@ function getCurrentWeather() {
       console.log(response);
       $(".city").text(response.name);
       $(".date").text(moment().format("L"));
-      // $(".icon");
-      // changes the Kelvin temp to Fahrenheit
+      $(".icon").attr(
+        "src",
+        "http://www.openweathermap.org/img/w/" +
+          response.weather[0].icon +
+          ".png"
+      );
 
       $(".temp").text("Temp: " + response.main.temp.toFixed());
       $(".humidity").text("Humidity: " + response.main.humidity + "%");
