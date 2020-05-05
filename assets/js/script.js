@@ -155,7 +155,7 @@ function getFiveDay() {
       // adds the weather icon
       var fiveDayIcon = $("<img>", {
         src:
-          "http://www.openweathermap.org/img/w/" +
+          "https://www.openweathermap.org/img/w/" +
           response.list[i].weather[0].icon +
           ".png",
       });
