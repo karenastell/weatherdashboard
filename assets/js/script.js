@@ -7,19 +7,51 @@ var stateInput;
 // a button to use to submit the input with a class = search
 $(".search").on("click", getCurrentWeather);
 // store users search in  an array local storage
-var cityInputArray = [];
+
 // on page load, grab from local storage - most recent search
 // if the users search exists in local storage, do not append a new one to the searches - just grab from local storage
 // in the getCurrentWeather function, check local storage for previous searches
 
 // a list of buttons uder the search input with the names from cityInputArray
-function generateCityButtons() {
-  var cityBtn = $("<button>", {
-    class: "city-button button",
-    text: cityInput,
-  });
-  $(".search-history").append(cityBtn);
+var cityInputArray = [];
+
+function saveCity() {
+  var savedCities = JSON.parse(localStorage.getItem("cities"));
+
+  if (savedCities !== null) {
+    cityInputArray = savedCities;
+  }
+
+  getCityFromLS();
 }
+
+function storeCities() {
+  localStorage.setItem("city", JSON.stringify(cityInputArray));
+}
+
+function getCityFromLS() {
+  cityInput.innerHTML = "";
+  stateInput.innerHTML = "";
+
+  cityInputArray.forEach(function (city) {
+    var cityBtn = $("<button>", {
+      class: "city-button button",
+      text: cityInput,
+    });
+    cityBtn.attr("data-city");
+    $(".search-history").append(cityBtn);
+  });
+}
+
+// function generateCityButtons() {
+//   var cityBtn = $("<button>", {
+//     class: "city-button button",
+//     text: cityInput,
+//   });
+//   $(".search-history").append(cityBtn);
+//   cityInput = "";
+//   console.log("city input in generate: ", cityInput);
+// }
 
 // clear search history
 $(".clear-history").on("click", clearSearchHistory);
@@ -35,6 +67,7 @@ $(".clear-history").on("click", clearSearchHistory);
 $(".icon").hide();
 // create a function that gets current weather
 function getCurrentWeather() {
+  $(".5-day-element").empty();
   $(".icon").show();
   // assigns the value of the users input into variables
   cityInput = $(".city-input").val();
@@ -43,16 +76,18 @@ function getCurrentWeather() {
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
   console.log(url);
 
+  // if (cityInputArray.length < 6) {
+  //   cityInputArray.push(cityInput);
+  // } else {
+  //   cityInputArray[0] = cityInput;
+  // }
+
   // sends a request to get information from the weather API
   $.get(url)
     // recieve the information and put the values in proper place
     .then(function (response) {
       console.log(response);
-      // var cityBtn = $("<button>", {
-      //   class: "city-button button is-full-width",
-      //   text: cityInput,
-      // });
-      // $(".search-history").append(cityBtn);
+
       $(".city").text(response.name);
       $(".date").text(moment().format("L"));
       $(".icon").attr(
@@ -74,6 +109,8 @@ function getCurrentWeather() {
       getFiveDay();
       // calls the generateCityButtons function
       generateCityButtons();
+      // calls the saveCity function
+      saveCity();
     });
 }
 
@@ -110,9 +147,10 @@ function getFiveDay() {
         class: "column",
       });
       // adds the date
+      var date = response.list[i].dt;
       var fiveDayDate = $("<p>", {
         class: "five-day-date",
-        text: response.list[i].dt_txt,
+        text: moment.unix(date).format("L"),
       });
       // adds the weather icon
       var fiveDayIcon = $("<img>", {
@@ -124,7 +162,7 @@ function getFiveDay() {
       // adds the temp
       var fiveDayTemp = $("<p>", {
         class: "5-day-temp",
-        text: "Temp: " + response.list[i].main.temp,
+        text: "Temp: " + response.list[i].main.temp.toFixed(),
       });
       // adds the humidity level
       var fiveDayHumidity = $("<p>", {
@@ -154,6 +192,7 @@ function clearInputs() {
   stateInput.text("");
 }
 
+// this function clears the buttons created when the user searches a city
 function clearSearchHistory() {
   $(".search-history").empty();
   localStorage.clear();

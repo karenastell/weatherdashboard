@@ -55,7 +55,7 @@ span {
 
 .current-weather-header {
   font-size: 24px;
-  font-weight: bold;
+  font-weight: bolder;
   padding-left: 10px;
 }
 
@@ -84,4 +84,11 @@ span {
 
 .search {
   padding: 5px;
+}
+
+.five-day-header {
+  font-size: 24px;
+  font-weight: bolder;
+  text-decoration: underline;
+  padding-bottom: 20px;
 }
