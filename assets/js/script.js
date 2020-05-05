@@ -97,7 +97,7 @@ function getCurrentWeather() {
           ".png"
       );
 
-      $(".temp").text("Temperature: " + response.main.temp.toFixed());
+      $(".temp").text("Temperature: " + response.main.temp.toFixed() + "°");
       $(".humidity").text("Humidity: " + response.main.humidity + "%");
       $(".wind").text("Wind Speed: " + response.wind.speed + " MPH");
       var lon = response.coord.lon;
@@ -115,7 +115,7 @@ function getCurrentWeather() {
 }
 
 function getUVIndex(lat, lon) {
-  var url = `http://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+  var url = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
   console.log("uv", url);
   $.get(url).then(function (response) {
     console.log("uv response", response);
@@ -162,7 +162,7 @@ function getFiveDay() {
       // adds the temp
       var fiveDayTemp = $("<p>", {
         class: "5-day-temp",
-        text: "Temp: " + response.list[i].main.temp.toFixed(),
+        text: "Temp: " + response.list[i].main.temp.toFixed() + "°",
       });
       // adds the humidity level
       var fiveDayHumidity = $("<p>", {
