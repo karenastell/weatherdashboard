@@ -18,28 +18,81 @@
        <!-- Input and Button -->
       <div class="columns"> 
         <aside class="column is-one-quarter search-div">
+          <div ></div>
           <div class="input-div">
             <input
               type="text"
               placeholder="Enter a City Name"
               class="city-input"
             />
-            <input
-            type="text"
-            placeholder="Enter a State"
-            class="state-input"
-          />
-            <button class="button is-primary is-small search">Search</button>
+            <div class="select">
+              <select class="select-state">
+                <option value="select">Select a State</option>
+                <option value="Alabama">Alabama</option>
+                <option value="Alaska">Alaska</option>
+                <option value="Arizona">Arizona</option>
+                <option value="Arkansas">Arkansas</option>
+                <option value="California">California</option>
+                <option value="colorado">Colorado</option>
+                <option value="connecticut">Connecticut</option>
+                <option value="delaware">Delaware</option>
+                <option value="florida">Florida</option>
+                <option value="georgia">Georgia</option>
+                <option value="hawaii">Hawaii</option>
+                <option value="idaho">Idaho</option>
+                <option value="illinois">Illinois</option>
+                <option value="indiana">Indiana</option>
+                <option value="iowa">Iowa</option>
+                <option value="kansas">Kansas</option>
+                <option value="kentucky">Kentucky</option>
+                <option value="louisiana">Louisiana</option>
+                <option value="maine">Maine</option>
+                <option value="maryland">Maryland</option>
+                <option value="massachusetts">Massachusetts</option>
+                <option value="michigan">Michigan</option>
+                <option value="minnesota">Minnesota</option>
+                <option value="mississippi">Mississippi</option>
+                <option value="missouri">Missouri</option>
+                <option value="montana">Montana</option>
+                <option value="nebraska">Nebraska</option>
+                <option value="nevada">Nevada</option>
+                <option value="newhampshire">New Hampshire</option>
+                <option value="newjersey">New Jersey</option>
+                <option value="newmexico">New Mexico</option>
+                <option value="newyork">New York</option>
+                <option value="northcarolina">North Carolina</option>
+                <option value="northdakota">North Dakota</option>
+                <option value="ohio">Ohio</option>
+                <option value="oklahoma">Oklahoma</option>
+                <option value="oregon">Oregon</option>
+                <option value="pennsylvania">Pennsylvania</option>
+                <option value="rhodeisland">Rhode Island</option>
+                <option value="southcarolina">South Carolina</option>
+                <option value="southdakota">South Dakota</option>
+                <option value="tennesee">Tennesee</option>
+                <option value="texas">Texas</option>
+                <option value="utah">Utah</option>
+                <option value="vermont">Vermont</option>
+                <option value="virginia">Virginia</option>
+                <option value="washington">Washington</option>
+                <option value="westvirginia">West Virginia</option>
+                <option value=" wisconsin">Wisconsin</option>
+                <option value="wyoming">Wyoming</option>
+              </select>
+            </div>
+            <button class="button is-primary search">Search</button>
           </div>
           <!-- Search hisotry buttons -->
           <div class="search-history">
            
           </div>
-           <div class="clear-history"><button class="button is-warning clear-button">Clear Search History</button></div>
+           <div class="clear-history"><button class="button is-warning clear-button">Clear Search History</button>
+          </div>
         </aside>
          <!-- Current Weather -->
          <section class="column is-two-thirds section-style">   
             <div class="current-weather">
+              <h1 class="title cw-heading">Current Weather</h1>
                 <h2 class="vert-align current-weather-header">
                   <span class="city"></span>      <span class="date span-padding"></span>
                  <span><img class="icon"></img></span> 
@@ -53,7 +106,7 @@
                   </ul>
                 </div>
               </div>
-            
+         
                 <!-- 5-day-forecast -->
           <section class="column">             
               <div class="five-day">
@@ -61,13 +114,7 @@
               </div>
               <div class="columns 5-day-element">
               </div>
-              
           </section>
-            
-    
-          
-         
-        
       </div>
     </main>
     <script

@@ -1,7 +1,7 @@
 .weather-list {
   list-style-type: none;
   font-size: 24px;
-  padding-top: 30px;
+  padding-top: 10px;
 }
 
 .nav {
@@ -21,7 +21,7 @@
 
 .current-weather {
   border: 1px solid grey;
-  height: 250px;
+  height: 300px;
   padding-right: 50px;
 }
 
@@ -37,6 +37,7 @@
 
 .city-input {
   margin: 3px;
+  font-size: 22px;
 }
 
 .state-input {
@@ -72,7 +73,16 @@ span {
   text-align: center;
 }
 
+.search {
+  width: 80%;
+  margin: 10px;
+}
+
 .city-button {
+  margin: 10px;
+}
+
+.clear-button {
   width: 80%;
   margin: 10px;
 }
@@ -84,6 +94,7 @@ span {
 
 .search {
   padding: 5px;
+  text-align: center;
 }
 
 .five-day-header {
@@ -91,4 +102,29 @@ span {
   font-weight: bolder;
   text-decoration: underline;
   padding-bottom: 20px;
+}
+
+.cw-heading {
+  text-decoration: underline;
+  padding-left: 10px;
+}
+
+.uv-low {
+  color: green;
+}
+
+.uv-med {
+  color: orange;
+}
+
+.uv-high {
+  color: red;
+}
+
+.uv-very-high {
+  color: purple;
+}
+
+.uv-clear {
+  color: black;
 }
