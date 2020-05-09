@@ -18,15 +18,15 @@
        <!-- Input and Button -->
       <div class="columns"> 
         <aside class="column is-one-quarter search-div">
-          <div ></div>
-          <div class="input-div">
+          <div class="input-div width-div">
             <input
               type="text"
               placeholder="Enter a City Name"
-              class="city-input"
+              class="city-input width-div"
             />
-            <div class="select">
-              <select class="select-state">
+            <br>
+            <div class="select width-div">
+              <select class="select-state width-div">
                 <option value="select">Select a State</option>
                 <option value="Alabama">Alabama</option>
                 <option value="Alaska">Alaska</option>
@@ -76,23 +76,27 @@
                 <option value="virginia">Virginia</option>
                 <option value="washington">Washington</option>
                 <option value="westvirginia">West Virginia</option>
-                <option value=" wisconsin">Wisconsin</option>
+                <option value="wisconsin">Wisconsin</option>
                 <option value="wyoming">Wyoming</option>
               </select>
             </div>
-            <button class="button is-primary search">Search</button>
+            <br>
+           <div class="search-btn-div">
+             <button class="button is-primary search">Search</button>
+          </div> 
           </div>
           <!-- Search hisotry buttons -->
           <div class="search-history">
            
           </div>
-           <div class="clear-history"><button class="button is-warning clear-button">Clear Search History</button>
+           <div class="clear-history">
+             <button class="button is-warning clear-button">Clear Search History</button>
           </div>
         </aside>
          <!-- Current Weather -->
          <section class="column is-two-thirds section-style">   
             <div class="current-weather">
-              <h1 class="title cw-heading">Current Weather</h1>
+              <h1 class="title cw-heading">Current Weather:</h1>
                 <h2 class="vert-align current-weather-header">
                   <span class="city"></span>      <span class="date span-padding"></span>
                  <span><img class="icon"></img></span> 
@@ -105,16 +109,17 @@
                     <li class="uv"></li>
                   </ul>
                 </div>
-              </div>
+            </div>
          
                 <!-- 5-day-forecast -->
-          <section class="column">             
-              <div class="five-day">
-                <h2 class="five-day-header">5-Day-Forecast:</h2>
-              </div>
-              <div class="columns 5-day-element">
-              </div>
-          </section>
+            <section class="column">             
+                <div class="five-day">
+                  <h2 class="five-day-header">5-Day-Forecast:</h2>
+                </div>
+                <div class="columns 5-day-element">
+                </div>
+            </section>
+        </section>
       </div>
     </main>
     <script

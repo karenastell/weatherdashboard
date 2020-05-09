@@ -12,6 +12,16 @@ $(".search").on("click", function (event) {
 });
 
 // on page load, grab from local storage - most recent search
+// console.log(localStorage.getItem("city"));
+// console.log("length", localStorage.length);
+// var lsLength = localStorage.length;
+// console.log("lsLength city", localStorage.city[lsLength]);
+// console.log(
+//   "JSON",
+//   localStorage.setItem("city", JSON.stringify(cityInputArray))
+// );
+// console.log(JSON.stringify(cityInputArray));
+// console.log("above", cityInputArray);
 
 // an array to hold the cityInputs
 var cityInputArray = [];
@@ -32,6 +42,14 @@ $(".icon").hide();
 function getCurrentWeather() {
   $(".5-day-element").empty();
   $(".icon").show();
+
+  // if (!cityInput) {
+  //   var noInput = $("<p>", {
+  //     class: "no-input",
+  //     text: "Please Enter A City To Continue",
+  //   });
+  //   $(".input-div").prepend(noInput);
+  // }
   // assigns the value of the users input into variables
   cityInput = $(".city-input").val().trim();
   cityInput = cityInput.toLowerCase();
@@ -73,11 +91,17 @@ function getCurrentWeather() {
         var cityBtn = $("<button>", {
           class: "city-button button",
           text: capital(city),
+          id: city,
         });
         var lineBreak = $("<br>");
         $(".search-history").append(cityBtn, lineBreak);
       });
+      $(".city-button").each(function () {
+        // each button added, on click will give you that city's weather
+        $(this).on("click", function () {});
+      });
     }
+    console.log("inside function", JSON.stringify(cityInputArray));
   });
 
   console.log(cityInputArray);
@@ -109,7 +133,6 @@ function getCurrentWeather() {
       // calls the generateButtons function
       // generateButtons();
       $(".city-input").val("");
-      $(".state-input").val("select");
     });
 }
 

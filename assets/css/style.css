@@ -86,12 +86,21 @@ span {
   width: 80%;
   margin: 10px;
 }
-
+.text-center {
+  text-align: center;
+}
+.width-div {
+  width: 100%;
+}
 .clear-history {
   margin-top: 20px;
   text-align: center;
 }
 
+.search-btn-div {
+  margin-top: 20px;
+  text-align: center;
+}
 .search {
   padding: 5px;
   text-align: center;
