@@ -43,19 +43,34 @@ function getCurrentWeather() {
   $(".5-day-element").empty();
   $(".icon").show();
 
-  // if (!cityInput) {
-  //   var noInput = $("<p>", {
-  //     class: "no-input",
-  //     text: "Please Enter A City To Continue",
-  //   });
-  //   $(".input-div").prepend(noInput);
-  // }
   // assigns the value of the users input into variables
   cityInput = $(".city-input").val().trim();
   cityInput = cityInput.toLowerCase();
   console.log(cityInput);
   stateInput = $(".select-state").val();
   console.log(stateInput);
+
+  // if no input
+  if (!cityInput) {
+    //show a message
+    var noInput = $("<p>", {
+      class: "no-input",
+      text: "Please Enter A City To Continue",
+    });
+    // hide the weather info
+    $(".5-day-element").hide();
+    $(".current-weather-info-div").hide();
+    // append the message
+    $(".no-input-div").append(noInput);
+    // stops the function
+    return;
+  } else {
+    // hide the message
+    $(".no-input-div").hide();
+    // show the weather info
+    $(".current-weather-info-div").show();
+    $(".5-day-element").show();
+  }
 
   // takes the value of the city-input and state-input and replaces it in the url
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
