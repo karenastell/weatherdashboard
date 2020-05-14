@@ -26,9 +26,14 @@
 }
 
 .current-weather {
+  background-color: blanchedalmond;
   border: 1px solid grey;
   height: 300px;
   padding-right: 50px;
+}
+
+.card {
+  background-color: blanchedalmond;
 }
 
 .icon {
