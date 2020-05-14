@@ -133,10 +133,12 @@ function getCurrentWeather() {
       savedCities = [...new Set(savedCities)];
       // add buttons to the search history
       savedCities.forEach(function (city) {
+        var cityState = capital(city) + ", " + stateInput;
+        console.log(cityState);
         var cityBtn = $("<button>", {
           class: "city-button button",
           text: capital(city) + ", " + stateInput,
-          id: city,
+          id: capital(city) + ", " + stateInput,
         });
         var lineBreak = $("<br>");
         $(".search-history").append(cityBtn, lineBreak);
@@ -153,8 +155,10 @@ function getCurrentWeather() {
 
 // when the city buttons are clicked
 $(document).on("click", ".city-button", function () {
+  // clear 5 day forecast element
+  $(".5-day-element").empty();
   // each button added, on click will give you that city's weather
-  stateInput = "";
+  // stateInput = "";
   // cityInput is set to the button's id
   cityInput = $(this).attr("id");
   console.log("cityInput on click", cityInput);
