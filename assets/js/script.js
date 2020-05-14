@@ -1,7 +1,7 @@
 var apiKey = "06cf4510268298d34395e66dd432fb8e";
 var cityInput;
 var stateInput;
-
+$(".no-input-div").hide();
 // ************************** Search Area ******************************
 // an input to allow the user to search for the city with an id = city-input
 // a button to use to submit the input with a class = search
@@ -10,24 +10,27 @@ $(".search").on("click", function (event) {
   event.preventDefault();
   getCurrentWeather();
 });
-
-// on page load, grab from local storage - most recent search
-// console.log(localStorage.getItem("city"));
-// console.log("length", localStorage.length);
-// var lsLength = localStorage.length;
-// console.log("lsLength city", localStorage.city[lsLength]);
-// console.log(
-//   "JSON",
-//   localStorage.setItem("city", JSON.stringify(cityInputArray))
-// );
-// console.log(JSON.stringify(cityInputArray));
-// console.log("above", cityInputArray);
-
 // an array to hold the cityInputs
 var cityInputArray = [];
+var stateInputArray = [];
+// on page load, grab from local storage - most recent search
+console.log(localStorage.getItem("city"));
 
 // clear search history
 $(".clear-history").on("click", clearSearchHistory);
+
+function loadLastWeather() {
+  var cityArray = JSON.parse(localStorage.getItem("city"));
+  var stateArray = JSON.parse(localStorage.getItem("state"));
+  var index = cityArray.length - 1;
+
+  cityInput = cityArray[index];
+  stateInput = stateArray[index];
+  console.log(cityInput);
+  console.log(stateInput);
+
+  ajaxCall();
+}
 
 // *************************** Current Weather **************************
 // a <div> that holds the current weather
@@ -38,6 +41,41 @@ $(".clear-history").on("click", clearSearchHistory);
 //         wind speed
 //         UV Index
 $(".icon").hide();
+
+// makes the ajax call to the open weather API
+function ajaxCall() {
+  var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
+  // sends a request to get information from the weather API
+  $.get(url)
+    // recieve the information and put the values in proper place
+    .then(function (response) {
+      console.log(response);
+
+      $(".city").text(response.name + ", " + stateInput);
+      $(".date").text(moment().format("L"));
+      $(".icon").attr(
+        "src",
+        "https://www.openweathermap.org/img/w/" +
+          response.weather[0].icon +
+          ".png"
+      );
+
+      $(".temp").text("Temperature: " + response.main.temp.toFixed() + "°");
+      $(".humidity").text("Humidity: " + response.main.humidity + "%");
+      $(".wind").text("Wind Speed: " + response.wind.speed + " MPH");
+      var lon = response.coord.lon;
+      var lat = response.coord.lat;
+      // call the UVIndex function to generate the UV Index element
+      getUVIndex(lat, lon);
+      // calls the getFiveDay function to generate the 5-day-Forecast
+      getFiveDay();
+      // calls the generateButtons function
+      // generateButtons();
+      $(".city-input").val("");
+      console.log("lsArray", lsArray);
+    });
+}
+
 // create a function that gets current weather
 function getCurrentWeather() {
   $(".5-day-element").empty();
@@ -46,22 +84,15 @@ function getCurrentWeather() {
   // assigns the value of the users input into variables
   cityInput = $(".city-input").val().trim();
   cityInput = cityInput.toLowerCase();
-  console.log(cityInput);
   stateInput = $(".select-state").val();
-  console.log(stateInput);
 
   // if no input
-  if (!cityInput) {
+  if (!cityInput || !stateInput) {
     //show a message
-    var noInput = $("<p>", {
-      class: "no-input",
-      text: "Please Enter A City To Continue",
-    });
+    $(".no-input-div").show();
     // hide the weather info
     $(".5-day-element").hide();
     $(".current-weather-info-div").hide();
-    // append the message
-    $(".no-input-div").append(noInput);
     // stops the function
     return;
   } else {
@@ -73,12 +104,10 @@ function getCurrentWeather() {
   }
 
   // takes the value of the city-input and state-input and replaces it in the url
-  var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
-  console.log(url);
 
   // pushes most recent search into the cityInput Array
   cityInputArray.push(cityInput);
-  console.log("array", cityInputArray);
+  stateInputArray.push(stateInput);
 
   // changes the first letter of the city to a capital latter
   // my tutor helped me with this part!
@@ -96,8 +125,9 @@ function getCurrentWeather() {
   cityInputArray.forEach(function (city) {
     if (cityInput) {
       $(".search-history").empty();
-      // puts the cityInputArry into local storage
+      // puts the cityInputArray into local storage
       localStorage.setItem("city", JSON.stringify(cityInputArray));
+      localStorage.setItem("state", JSON.stringify(stateInputArray));
       var savedCities = JSON.parse(localStorage.getItem("city"));
       // if there is a duplicate in the array - only put one out in the buttons
       savedCities = [...new Set(savedCities)];
@@ -105,60 +135,41 @@ function getCurrentWeather() {
       savedCities.forEach(function (city) {
         var cityBtn = $("<button>", {
           class: "city-button button",
-          text: capital(city),
+          text: capital(city) + ", " + stateInput,
           id: city,
         });
         var lineBreak = $("<br>");
         $(".search-history").append(cityBtn, lineBreak);
       });
-      $(".city-button").each(function () {
-        // each button added, on click will give you that city's weather
-        $(this).on("click", function () {});
-      });
     }
+    console.log("saved cities", savedCities.length);
     console.log("inside function", JSON.stringify(cityInputArray));
   });
 
   console.log(cityInputArray);
-  // sends a request to get information from the weather API
-  $.get(url)
-    // recieve the information and put the values in proper place
-    .then(function (response) {
-      console.log(response);
 
-      $(".city").text(response.name);
-      $(".date").text(moment().format("L"));
-      $(".icon").attr(
-        "src",
-        "https://www.openweathermap.org/img/w/" +
-          response.weather[0].icon +
-          ".png"
-      );
-
-      $(".temp").text("Temperature: " + response.main.temp.toFixed() + "°");
-      $(".humidity").text("Humidity: " + response.main.humidity + "%");
-      $(".wind").text("Wind Speed: " + response.wind.speed + " MPH");
-      var lon = response.coord.lon;
-      var lat = response.coord.lat;
-      console.log("long lat", lon, lat);
-      // call the UVIndex function to generate the UV Index element
-      getUVIndex(lat, lon);
-      // calls the getFiveDay function to generate the 5-day-Forecast
-      getFiveDay();
-      // calls the generateButtons function
-      // generateButtons();
-      $(".city-input").val("");
-    });
+  ajaxCall();
 }
+
+// when the city buttons are clicked
+$(document).on("click", ".city-button", function () {
+  // each button added, on click will give you that city's weather
+  stateInput = "";
+  // cityInput is set to the button's id
+  cityInput = $(this).attr("id");
+  console.log("cityInput on click", cityInput);
+  // ajax function is called
+  ajaxCall();
+});
 
 function getUVIndex(lat, lon) {
   var url = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
-  console.log("uv", url);
+
   $.get(url).then(function (response) {
     console.log("uv response", response);
     // input the information from the API
     $(".uv").text("UV Index: " + response.value);
-    console.log(response.value);
+
     if (response.value < 3) {
       // UV text = green
       $(".uv").addClass("uv-low");
@@ -180,7 +191,6 @@ function getUVIndex(lat, lon) {
 //create 5DayForcast function
 function getFiveDay() {
   var url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
-  console.log("five day", url);
   $.get(url).then(function (response) {
     console.log("five day ", response);
 
@@ -249,3 +259,5 @@ function clearSearchHistory() {
   cityInputArray = [];
   localStorage.clear();
 }
+
+loadLastWeather();
