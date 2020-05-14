@@ -36,8 +36,6 @@ function loadLastWeather() {
 // *************************** Current Weather **************************
 // a <div> that holds the current weather
 
-$(".icon").hide();
-
 // makes the ajax call to the open weather API
 function ajaxCall() {
   // takes the value of the city-input and state-input and replaces it in the url

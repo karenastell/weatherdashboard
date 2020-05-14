@@ -15,17 +15,19 @@
     <!-- Nav Header -->
     <nav class="nav"><h1>Weather Dashboard</h1></nav>
     <main>
-       <!-- Input and Button -->
-      <div class="columns"> 
+      <!-- Input and Button -->
+      <div class="columns">
         <aside class="column is-one-quarter search-div">
-          <div class="no-input-div"><p>Please Enter A City/State To Continue</p></div>
+          <div class="no-input-div">
+            <p>Please Enter A City/State To Continue</p>
+          </div>
           <div class="input-div width-div">
             <input
               type="text"
               placeholder="Enter a City Name"
               class="city-input width-div"
             />
-            <br>
+            <br />
             <div class="select width-div">
               <select class="select-state width-div">
                 <option value="">Select a State</option>
@@ -81,65 +83,63 @@
                 <option value="Wyoming">Wyoming</option>
               </select>
             </div>
-            <br>
-           <div class="search-btn-div">
-             <button class="button is-primary search">Search</button>
-          </div> 
+            <br />
+            <div class="search-btn-div">
+              <button class="button is-primary search">Search</button>
+            </div>
           </div>
           <!-- Search hisotry buttons -->
-          <div class="search-history">
-           
-          </div>
-           <div class="clear-history">
-             <button class="button is-warning clear-button">Clear Search History</button>
+          <div class="search-history"></div>
+          <div class="clear-history">
+            <button class="button is-warning clear-button">
+              Clear Search History
+            </button>
           </div>
         </aside>
-         <!-- Current Weather -->
-         <section class="column is-two-thirds section-style">   
-            <div class="current-weather">
-              <h1 class="title cw-heading font-color">Current Weather:</h1>
-              <div class="current-weather-info-div">
-                <h2 class="vert-align current-weather-header">
-                  <span class="city"></span>      <span class="date span-padding"></span>
-                 <span><img class="icon"></img></span> 
-                </h2>
-                <div class="weather-list-element current-weather-ul">
-                  <ul class="weather-list">
-                    <li class="temp font-color"></li>
-                    <li class="humidity font-color"></li>
-                    <li class="wind font-color"></li>
-                    <li class="uv"></li>
-                  </ul>
-               </div>
+        <!-- Current Weather -->
+        <section class="column is-two-thirds section-style">
+          <div class="current-weather">
+            <h1 class="title cw-heading font-color">Current Weather:</h1>
+            <div class="current-weather-info-div">
+              <h2 class="vert-align current-weather-header">
+                <span class="city"></span>
+                <span class="date span-padding"></span>
+                <span><img class="icon" alt="weather icon" /></span>
+              </h2>
+              <div class="weather-list-element current-weather-ul">
+                <ul class="weather-list">
+                  <li class="temp font-color"></li>
+                  <li class="humidity font-color"></li>
+                  <li class="wind font-color"></li>
+                  <li class="uv"></li>
+                </ul>
               </div>
             </div>
-         
-                <!-- 5-day-forecast -->
-            <section class="column">             
-                <div class="five-day">
-                  <h2 class="five-day-header">5-Day-Forecast:</h2>
-                </div>
-                <div class="columns 5-day-element is-desktop">
-                </div>
-            </section>
+          </div>
+
+          <!-- 5-day-forecast -->
+          <section class="column">
+            <div class="five-day">
+              <h2 class="five-day-header">5-Day-Forecast:</h2>
+            </div>
+            <div class="columns 5-day-element is-desktop"></div>
+          </section>
         </section>
       </div>
     </main>
-   
-      <footer class="foot">
-        
-        <p>
-          &copy; 2020
-          <a
-            class="hover footer-links"
-            href="https://github.com/karenastell"
-            target="_blank"
-            >Karen Astell</a>
-          
-        </p>
-      </footer>
- 
-   
+
+    <footer class="foot">
+      <p>
+        &copy; 2020
+        <a
+          class="hover footer-links"
+          href="https://github.com/karenastell"
+          target="_blank"
+          >Karen Astell</a
+        >
+      </p>
+    </footer>
+
     <script
       src="https://code.jquery.com/jquery-3.5.0.min.js"
       integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="
