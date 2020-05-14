@@ -19,37 +19,43 @@ console.log(localStorage.getItem("city"));
 // clear search history
 $(".clear-history").on("click", clearSearchHistory);
 
+// this fuction loads the last weather search after page refresh
 function loadLastWeather() {
+  // takes the city and state info from local storage and makes it into arrays
   var cityArray = JSON.parse(localStorage.getItem("city"));
   var stateArray = JSON.parse(localStorage.getItem("state"));
+  // finds the length of the array and correct indext needed
   var index = cityArray.length - 1;
 
+  // finds the correct city and state
   cityInput = cityArray[index];
   stateInput = stateArray[index];
-  console.log(cityInput);
-  console.log(stateInput);
 
+  // calls the ajax function with the city and state that was last searched for
   ajaxCall();
 }
 
 // *************************** Current Weather **************************
 // a <div> that holds the current weather
-// an unordered list without bullets to hold the info for
-//         city, date, icon
-//         temp
-//         humidity
-//         wind speed
-//         UV Index
+
 $(".icon").hide();
 
 // makes the ajax call to the open weather API
 function ajaxCall() {
+  // takes the value of the city-input and state-input and replaces it in the url
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
   // sends a request to get information from the weather API
   $.get(url)
     // recieve the information and put the values in proper place
     .then(function (response) {
       console.log(response);
+
+      // an unordered list without bullets to hold the info for
+      //         city, date, icon
+      //         temp
+      //         humidity
+      //         wind speed
+      //         UV Index
 
       $(".city").text(response.name + ", " + stateInput);
       $(".date").text(moment().format("L"));
@@ -63,22 +69,24 @@ function ajaxCall() {
       $(".temp").text("Temperature: " + response.main.temp.toFixed() + "°");
       $(".humidity").text("Humidity: " + response.main.humidity + "%");
       $(".wind").text("Wind Speed: " + response.wind.speed + " MPH");
+
+      // gets the lon and lat of the city to put into the getUVIndex function
       var lon = response.coord.lon;
       var lat = response.coord.lat;
       // call the UVIndex function to generate the UV Index element
       getUVIndex(lat, lon);
       // calls the getFiveDay function to generate the 5-day-Forecast
       getFiveDay();
-      // calls the generateButtons function
-      // generateButtons();
+      // clears the city input
       $(".city-input").val("");
-      console.log("lsArray", lsArray);
     });
 }
 
 // create a function that gets current weather
 function getCurrentWeather() {
+  // empties the 5 day forecast element from previous search
   $(".5-day-element").empty();
+  // shows the icon in the current weather div
   $(".icon").show();
 
   // assigns the value of the users input into variables
@@ -103,8 +111,6 @@ function getCurrentWeather() {
     $(".5-day-element").show();
   }
 
-  // takes the value of the city-input and state-input and replaces it in the url
-
   // pushes most recent search into the cityInput Array
   cityInputArray.push(cityInput);
   stateInputArray.push(stateInput);
@@ -112,16 +118,22 @@ function getCurrentWeather() {
   // changes the first letter of the city to a capital latter
   // my tutor helped me with this part!
   function capital(city) {
+    // an array for the final word
     var result = [];
+    //
     words = city.split(" ");
+    // for each letter in the city name
     for (let i in words) {
       var word = words[i].split("");
+      // makes the first letters upper case
       word[0] = word[0].toUpperCase();
+      // puts the word back to normal and puts it into the array
       result.push(word.join(""));
     }
     return result.join(" ");
   }
 
+  // for each city in the city array - make a button
   cityInputArray.forEach(function (city) {
     if (cityInput) {
       $(".search-history").empty();
@@ -131,44 +143,46 @@ function getCurrentWeather() {
       var savedCities = JSON.parse(localStorage.getItem("city"));
       // if there is a duplicate in the array - only put one out in the buttons
       savedCities = [...new Set(savedCities)];
+
       // add buttons to the search history
+      // for each city in the savedCities array, the array without duplicates
       savedCities.forEach(function (city) {
-        var cityState = capital(city) + ", " + stateInput;
-        console.log(cityState);
+        // var cityState = capital(city) + ", " + stateInput;
+        // make a button
         var cityBtn = $("<button>", {
+          // add class for styling and appending purposes
           class: "city-button button",
+          // add text to the button, city and state
           text: capital(city) + ", " + stateInput,
+          // set the id to the same as the text
           id: capital(city) + ", " + stateInput,
         });
         var lineBreak = $("<br>");
+        // put the button on the page
         $(".search-history").append(cityBtn, lineBreak);
       });
     }
-    console.log("saved cities", savedCities.length);
-    console.log("inside function", JSON.stringify(cityInputArray));
   });
 
-  console.log(cityInputArray);
-
+  // call the ajax function
   ajaxCall();
 }
 
-// when the city buttons are clicked
+// each button added, on click will give you that city's weather
 $(document).on("click", ".city-button", function () {
   // clear 5 day forecast element
   $(".5-day-element").empty();
-  // each button added, on click will give you that city's weather
-  // stateInput = "";
   // cityInput is set to the button's id
   cityInput = $(this).attr("id");
-  console.log("cityInput on click", cityInput);
   // ajax function is called
   ajaxCall();
 });
 
 function getUVIndex(lat, lon) {
+  // puts the log and lat into the url
   var url = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
 
+  // gets the info from the API
   $.get(url).then(function (response) {
     console.log("uv response", response);
     // input the information from the API
@@ -194,7 +208,10 @@ function getUVIndex(lat, lon) {
 
 //create 5DayForcast function
 function getFiveDay() {
+  // putst the city and state into the url
   var url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
+
+  // gets the info from the API
   $.get(url).then(function (response) {
     console.log("five day ", response);
 
@@ -252,9 +269,9 @@ function getFiveDay() {
   });
 }
 
+// clears the city input
 function clearInputs() {
   cityInput.text("");
-  stateInput.text("");
 }
 
 // this function clears the buttons created when the user searches a city
@@ -264,4 +281,5 @@ function clearSearchHistory() {
   localStorage.clear();
 }
 
+// calls the loadLastWeather function
 loadLastWeather();

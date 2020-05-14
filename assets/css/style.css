@@ -1,3 +1,8 @@
+.background {
+  background-image: url(../images/background-clouds.jpg);
+  height: 900px;
+}
+
 .weather-list {
   list-style-type: none;
   font-size: 24px;
@@ -136,4 +141,18 @@ span {
 
 .uv-clear {
   color: black;
+}
+
+.foot {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: lightskyblue;
+  height: 40px;
+  color: white;
+  font-size: 13px;
+  text-align: center;
+  padding: 15px;
+  border-top: 1px solid #e2b306;
 }
