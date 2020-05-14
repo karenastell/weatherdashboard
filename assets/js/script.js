@@ -13,8 +13,6 @@ $(".search").on("click", function (event) {
 // an array to hold the cityInputs
 var cityInputArray = [];
 var stateInputArray = [];
-// on page load, grab from local storage - most recent search
-console.log(localStorage.getItem("city"));
 
 // clear search history
 $(".clear-history").on("click", clearSearchHistory);
@@ -44,6 +42,8 @@ $(".icon").hide();
 function ajaxCall() {
   // takes the value of the city-input and state-input and replaces it in the url
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
+
+  console.log("ajax", cityInput, stateInput);
   // sends a request to get information from the weather API
   $.get(url)
     // recieve the information and put the values in proper place
@@ -56,6 +56,7 @@ function ajaxCall() {
       //         humidity
       //         wind speed
       //         UV Index
+      console.log("inside get ajax", stateInput);
 
       $(".city").text(response.name + ", " + stateInput);
       $(".date").text(moment().format("L"));
@@ -141,26 +142,28 @@ function getCurrentWeather() {
       localStorage.setItem("city", JSON.stringify(cityInputArray));
       localStorage.setItem("state", JSON.stringify(stateInputArray));
       var savedCities = JSON.parse(localStorage.getItem("city"));
+      var savedStates = JSON.parse(localStorage.getItem("state"));
+      console.log(savedStates);
       // if there is a duplicate in the array - only put one out in the buttons
       savedCities = [...new Set(savedCities)];
 
       // add buttons to the search history
       // for each city in the savedCities array, the array without duplicates
-      savedCities.forEach(function (city) {
-        // var cityState = capital(city) + ", " + stateInput;
-        // make a button
+      for (var j = 0; j < savedCities.length; j++) {
         var cityBtn = $("<button>", {
           // add class for styling and appending purposes
           class: "city-button button",
           // add text to the button, city and state
-          text: capital(city) + ", " + stateInput,
+          text: capital(savedCities[j]) + ", " + savedStates[j],
           // set the id to the same as the text
-          id: capital(city) + ", " + stateInput,
+          id: capital(savedCities[j]) + ", " + savedStates[j],
         });
         var lineBreak = $("<br>");
         // put the button on the page
         $(".search-history").append(cityBtn, lineBreak);
-      });
+        stateInput = savedStates[j];
+        console.log("state", stateInput);
+      }
     }
   });
 
@@ -173,7 +176,9 @@ $(document).on("click", ".city-button", function () {
   // clear 5 day forecast element
   $(".5-day-element").empty();
   // cityInput is set to the button's id
+  console.log(cityInput);
   cityInput = $(this).attr("id");
+  console.log("after", cityInput);
   // ajax function is called
   ajaxCall();
 });

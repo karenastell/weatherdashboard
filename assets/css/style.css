@@ -14,8 +14,9 @@
   text-align: center;
   font-size: 40px;
   font-weight: bold;
-  background-color: lightskyblue;
-  border-bottom: 2px solid lightslategray;
+  background-color: lightslategrey;
+  border-bottom: 2px solid black;
+  color: black;
 }
 
 .search-div {
@@ -60,6 +61,7 @@ span {
 }
 
 .current-weather-header {
+  color: black;
   font-size: 24px;
   font-weight: bolder;
   padding-left: 10px;
@@ -112,6 +114,7 @@ span {
 }
 
 .five-day-header {
+  color: black;
   font-size: 24px;
   font-weight: bolder;
   text-decoration: underline;
@@ -143,16 +146,25 @@ span {
   color: black;
 }
 
+.font-color {
+  color: black;
+}
+
 .foot {
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
-  background-color: lightskyblue;
+  background-color: lightslategrey;
   height: 40px;
-  color: white;
+  color: black;
   font-size: 13px;
   text-align: center;
   padding: 15px;
-  border-top: 1px solid #e2b306;
+  border-top: 1px solid black;
+}
+
+.footer-links {
+  color: white;
+  text-decoration: none;
 }
