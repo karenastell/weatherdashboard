@@ -41,6 +41,7 @@ function ajaxCall() {
   // takes the value of the city-input and state-input and replaces it in the url
   var url = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput},${stateInput},US&appid=${apiKey}&units=imperial`;
 
+  console.log("ajax", cityInput, stateInput);
   // sends a request to get information from the weather API
   $.get(url)
     // recieve the information and put the values in proper place
@@ -53,6 +54,7 @@ function ajaxCall() {
       //         humidity
       //         wind speed
       //         UV Index
+      console.log("inside get ajax", stateInput);
 
       $(".city").text(response.name);
       $(".date").text(moment().format("L"));
@@ -139,7 +141,7 @@ function getCurrentWeather() {
       localStorage.setItem("state", JSON.stringify(stateInputArray));
       var savedCities = JSON.parse(localStorage.getItem("city"));
       var savedStates = JSON.parse(localStorage.getItem("state"));
-
+      console.log(savedStates);
       // if there is a duplicate in the array - only put one out in the buttons
       savedCities = [...new Set(savedCities)];
 
@@ -158,6 +160,7 @@ function getCurrentWeather() {
         // put the button on the page
         $(".search-history").append(cityBtn, lineBreak);
         stateInput = savedStates[j];
+        console.log("state", stateInput);
       }
     }
   });
@@ -171,9 +174,9 @@ $(document).on("click", ".city-button", function () {
   // clear 5 day forecast element
   $(".5-day-element").empty();
   // cityInput is set to the button's id
-
+  console.log(cityInput);
   cityInput = $(this).attr("id");
-
+  console.log("after", cityInput);
   // ajax function is called
   ajaxCall();
 });
@@ -181,9 +184,10 @@ $(document).on("click", ".city-button", function () {
 function getUVIndex(lat, lon) {
   // puts the log and lat into the url
   var url = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
-
+  $(".uv").removeClass("uv-low uv-med uv-high uv-very-high");
   // gets the info from the API
   $.get(url).then(function (response) {
+    console.log("uv response", response);
     // input the information from the API
     $(".uv").text("UV Index: " + response.value);
 
