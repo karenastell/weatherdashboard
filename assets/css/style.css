@@ -88,6 +88,8 @@ span {
 .search {
   width: 80%;
   margin: 10px;
+  padding: 5px;
+  text-align: center;
 }
 
 .city-button {
@@ -111,10 +113,6 @@ span {
 
 .search-btn-div {
   margin-top: 20px;
-  text-align: center;
-}
-.search {
-  padding: 5px;
   text-align: center;
 }
 
